@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 
 import com.mongodb.Mongo;
 import com.mongodb.WriteConcern;
@@ -14,7 +15,7 @@ import com.mongodb.WriteConcern;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableMongoRepositories
-@EnableHypermediaSupport
+@EnableHypermediaSupport(type = HypermediaType.HAL)
 public class Application extends AbstractMongoConfiguration{
 	
 	public static void main(String[] args) {
@@ -28,6 +29,7 @@ public class Application extends AbstractMongoConfiguration{
 
 	@Bean
 	public Mongo mongo() throws Exception {
+		@SuppressWarnings("deprecation")
 		Mongo mongo = new Mongo();
 		mongo.setWriteConcern(WriteConcern.SAFE);
 
